@@ -36,3 +36,9 @@ Route::post('/verify-code', [authController::class, 'verifyCode'])->name('verify
 Route::get('/verify-code/{email}', [userController::class, 'verifyCodeView'])
 ->name('verify.code')
 ->middleware('signed'); // protegida con firma
+
+
+//RUTA DE ERROR
+Route::fallback(function () {
+    return response()->view('errors.404', [], 404);
+});

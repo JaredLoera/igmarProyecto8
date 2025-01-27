@@ -77,9 +77,10 @@ class authController extends Controller
         ]);
         $random = rand(1000, 9999);
         if (Auth::validate($credentials)) {
-            $user = Auth::user();
+            $user = User::where('email', $request->email)->first();
             $code = new code();
             $code->code = $random;
+            Log::debug($user);
             $code->user_id = $user->id;
             $code->save();
             Mail::to($request->email)->send(new sendMailCode($random));
