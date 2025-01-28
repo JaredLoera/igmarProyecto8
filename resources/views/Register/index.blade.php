@@ -5,6 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
     <title>Document</title>
 </head>
 
@@ -17,11 +19,34 @@
             <!-- Login Form -->
             <form method="POST" action="register">
                 @csrf
-                <input type="text" id="login" class=" second" name="email" placeholder="Correo">
-                <input type="text" id="phone" class=" first" name="phone" placeholder="Telefono celular">
-                <input type="password" id="password" class=" third" name="password" placeholder="Contraseña">
-                <input type="submit" class=" fourth" value="Registrar">
+                <input type="text" id="email" class="second" name="email" placeholder="Correo">
+
+
+                <input type="password" id="password" class="third" name="password" placeholder="Contraseña">
+
+
+                <input type="password" id="password_confirmation" class="third" name="password_confirmation" placeholder="Confirmar Contraseña">
+                <div>
+
+                    <small id="emailError" style="color: red;">Debe ser un correo válido.</small>
+                    <small id="passwordError" style="color: red;">
+                        <br> La contraseña debe tener al menos una mayúscula, una minúscula, un carácter especial y 8 caracteres.
+                    </small>
+                    <small id="passwordMatchError" style="color: red;"><br>Las contraseñas no coinciden.</small>
+                    <br>
+                <div class="g-recaptcha" data-sitekey="{{ config('services.recaptcha.site_key') }}"></div>
+                    @if ($errors->has('g-recaptcha-response'))
+                    <span style="color: red;">{{ $errors->first('g-recaptcha-response') }}</span>
+                    @endif
+                </div>
+                <!-- Widget de reCAPTCHA -->
+            
+
+                <input type="submit" class="fourth" value="Registrar" disabled id="submitButton">
             </form>
+            <input type="button" class="underlineHover" value="Login" onclick="window.location.href='login'">
+
+
             <!-- Remind Passowrd -->
             @if ($errors->any())
             <div class="alert alert-danger" style="color: red;">
@@ -34,6 +59,63 @@
             @endif
         </div>
     </div>
+    <script>
+        const emailInput = document.getElementById("email");
+        const passwordInput = document.getElementById("password");
+        const passwordConfirmationInput = document.getElementById("password_confirmation");
+        const submitButton = document.getElementById("submitButton");
+
+        const emailError = document.getElementById("emailError");
+        const passwordError = document.getElementById("passwordError");
+        const passwordMatchError = document.getElementById("passwordMatchError");
+
+        // Validación de correo
+        emailInput.addEventListener("input", () => {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (emailRegex.test(emailInput.value)) {
+                emailError.style.color = "green";
+                emailInput.style.borderColor = "green";
+            } else {
+                emailError.style.color = "red";
+                emailInput.style.borderColor = "red";
+            }
+            toggleSubmitButton();
+        });
+
+        // Validación de contraseña
+        passwordInput.addEventListener("input", () => {
+            const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\W).{8,}$/;
+            if (passwordRegex.test(passwordInput.value)) {
+                passwordInput.style.borderColor = "green";
+                passwordError.style.color = "green";
+            } else {
+                passwordError.style.color = "red";
+                passwordInput.style.borderColor = "red";
+            }
+            toggleSubmitButton();
+        });
+
+        // Validación de confirmación de contraseña
+        passwordConfirmationInput.addEventListener("input", () => {
+            if (passwordConfirmationInput.value === passwordInput.value) {
+                passwordConfirmationInput.style.borderColor = "green";
+                passwordMatchError.style.color = "green";
+            } else {
+                passwordMatchError.style.color = "red";
+                passwordConfirmationInput.style.borderColor = "red";
+            }
+            toggleSubmitButton();
+        });
+
+        // Habilitar el botón de submit si todo es válido
+        function toggleSubmitButton() {
+            const emailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailInput.value);
+            const passwordValid = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\W).{8,}$/.test(passwordInput.value);
+            const passwordsMatch = passwordInput.value === passwordConfirmationInput.value;
+
+            submitButton.disabled = !(emailValid && passwordValid && passwordsMatch);
+        }
+    </script>
 </body>
 
 </html>

@@ -41,16 +41,12 @@ class authController extends Controller
             [
                 'email' => 'required|email|unique:users',
                 'password' => 'required',
-                'phone' => 'required|numeric|digits:10'
             ],
             [
                 'email.required' => 'El email es requerido',
                 'email.email' => 'El email debe ser un email valido',
                 'email.unique' => 'El email ya esta registrado',
-                'password.required' => 'La contraseña es requerida',
-                'phone.required' => 'El telefono es requerido',
-                'phone.numeric' => 'El telefono debe ser numerico',
-                'phone.digits' => 'El telefono debe tener 10 digitos'
+                'password.required' => 'La contraseña es requerida'
             ]
         );
         if ($validator->fails()) {
@@ -60,7 +56,6 @@ class authController extends Controller
         $user->email = $request->email;
         $user->password = bcrypt($request->password);
         $user->phone = $request->phone;
-        Log::debug($user);
         if ($user->save()) {
             return redirect()->route('login');
         } else {
@@ -81,7 +76,6 @@ class authController extends Controller
             $user = User::where('email', $request->email)->first();
             $code = new code();
             $code->code = $random;
-            Log::debug($user);
             $code->user_id = $user->id;
             $code->save();
             Mail::to($request->email)->send(new sendMailCode($random));

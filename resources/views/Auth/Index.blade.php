@@ -22,6 +22,7 @@
                 <input type="submit" class=" fourth" value="Iniciar">
             </form>
             <!-- Remind Passowrd -->
+             <input type="button" class="underlineHover" value="Registrarse" onclick="window.location.href='register'">
         </div>
         @if ($errors->any())
         <div class="alert alert-danger">
