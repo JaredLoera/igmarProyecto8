@@ -24,10 +24,11 @@ class authController extends Controller
             'email' => ['required', 'email'],
             'code' => ['required', 'digits:4'],
         ]);
-        $lastCode = Code::where('user_id', Auth::id())->latest()->first();
+        $user = User::where('email', $request->email)->first();
+        $lastCode = Code::where('user_id', $user->id)->latest()->first();
         if ($lastCode->code == $request->code) {
-            // Regenerar sesión y autenticar completamente
-            $request->session()->regenerate();
+            // generar sesión de usuario y redirigir a dashboard
+            Auth::login($user);
             return redirect()->intended('/dashboard');
         }
 
