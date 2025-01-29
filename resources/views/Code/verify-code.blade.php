@@ -25,7 +25,7 @@
     </div>
     <button type="submit">Verificar</button>
     </form>
-    <button type="button" id="btn-new-code" 
+    <a type="button" id="btn-new-code"  
     class="w-fit mx-auto border border-white/30 bg-black/30  rounded-md py-2 px-4 uppercase font-thin transition-all duration-300 relative isolate overflow-hidden  hover:text-white focus-visible:text-white outline-none ring-0
                 before:absolute
                 before:-z-10
@@ -36,7 +36,7 @@
                 hover:before:inset-0
                 focus-visible:before:inset-0
 
-            ">send new code</button>
+            ">send new code</a>
 
             @if ($errors->any())
             <div>{{ $errors->first() }}</div>

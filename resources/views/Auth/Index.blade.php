@@ -5,6 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
     <title>Document</title>
 </head>
 
@@ -12,6 +14,12 @@
     <div class="wrapper">
         <div id="formContent">
             <!-- Tabs Titles -->
+              <!-- Mensaje de estado -->
+            @if (session('status'))
+            <div class="alert alert-success">
+                {{ session('status') }}
+            </div>
+            @endif
             <h2 class="active"> Inicio de sesion </h2>
             <!-- Icon -->
             <!-- Login Form -->
@@ -20,6 +28,11 @@
                 <input type="text" id="login" class=" second" name="email" placeholder="Correo">
                 <input type="password" id="password" class=" third" name="password" placeholder="Contraseña">
                 <input type="submit" class=" fourth" value="Iniciar">
+                <div class="g-recaptcha" data-sitekey="{{ config('services.recaptcha.site_key') }}"></div>
+                    @if ($errors->has('g-recaptcha-response'))
+                    <span style="color: red;">{{ $errors->first('g-recaptcha-response') }}</span>
+                    @endif
+                </div>
             </form>
             <!-- Remind Passowrd -->
              <input type="button" class="underlineHover" value="Registrarse" onclick="window.location.href='register'">

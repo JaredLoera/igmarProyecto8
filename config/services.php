@@ -11,7 +11,9 @@ return [
     | as Mailgun, Postmark, AWS and more. This file provides the de facto
     | location for this type of information, allowing packages to have
     | a conventional file to locate the various service credentials.
-    |
+
+
+    | Se añadio el apartado recaptcha para leer los parametros de RECAPTCHA_SITE_KEY y RECAPTCHA_SECRET_KEY
     */
 
     'mailgun' => [
