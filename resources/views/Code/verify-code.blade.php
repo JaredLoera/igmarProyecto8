@@ -3,7 +3,7 @@
 <head>
     <title>Verificar Código</title>
     <script src="https://cdn.tailwindcss.com"></script>
-
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </head>
 <body class="bg-gradient-to-tr from-red-950 to-teal-700 flex justify-center items-center min-h-screen p-4">
 
@@ -23,20 +23,13 @@
         class="bg-black/10 text-white border border-white/30 rounded-xl py-3 px-6 text-3xl sm:text-4xl max-w-xs w-32 text-center transition-all duration-300 focus:bg-black/90 focus:outline-none focus:ring-2 focus:ring-teal-500"
         placeholder="0000">
     </div>
+    <div class="g-recaptcha" data-sitekey="{{ config('services.recaptcha.site_key') }}"></div>
+                    @if ($errors->has('g-recaptcha-response'))
+                    <span style="color: red;">{{ $errors->first('g-recaptcha-response') }}</span>
+                    @endif
     <button type="submit">Verificar</button>
     </form>
-    <a type="button" id="btn-new-code"  
-    class="w-fit mx-auto border border-white/30 bg-black/30  rounded-md py-2 px-4 uppercase font-thin transition-all duration-300 relative isolate overflow-hidden  hover:text-white focus-visible:text-white outline-none ring-0
-                before:absolute
-                before:-z-10
-                before:inset-[100%_0]
-                before:bg-red-900
-                before:transition-all
-                before:duration-300
-                hover:before:inset-0
-                focus-visible:before:inset-0
-
-            ">send new code</a>
+  
 
             @if ($errors->any())
             <div>{{ $errors->first() }}</div>
