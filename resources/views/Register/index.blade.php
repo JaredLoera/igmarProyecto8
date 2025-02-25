@@ -38,7 +38,15 @@
                     @if ($errors->has('g-recaptcha-response'))
                     <span style="color: red;">{{ $errors->first('g-recaptcha-response') }}</span>
                     @endif
-                </div>
+                    @if ($errors->any())
+            <div class="alert alert-danger" style="color: red;">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+            @endif
                 <!-- Widget de reCAPTCHA -->
             
 
@@ -48,15 +56,7 @@
 
 
             <!-- Remind Passowrd -->
-            @if ($errors->any())
-            <div class="alert alert-danger" style="color: red;">
-                <ul>
-                    @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-            @endif
+           
         </div>
     </div>
     <script>

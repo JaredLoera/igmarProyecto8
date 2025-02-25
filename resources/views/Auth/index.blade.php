@@ -32,20 +32,11 @@
                     @if ($errors->has('g-recaptcha-response'))
                     <span style="color: red;">{{ $errors->first('g-recaptcha-response') }}</span>
                     @endif
-                </div>
+                
             </form>
             <!-- Remind Passowrd -->
              <input type="button" class="underlineHover" value="Registrarse" onclick="window.location.href='register'">
         </div>
-        @if ($errors->any())
-        <div class="alert alert-danger">
-            <ul>
-                @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-        @endif
     </div>
 </body>
 
