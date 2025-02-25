@@ -34,29 +34,29 @@
                     </small>
                     <small id="passwordMatchError" style="color: red;"><br>Las contraseñas no coinciden.</small>
                     <br>
-                <div class="g-recaptcha" data-sitekey="{{ config('services.recaptcha.site_key') }}"></div>
+                    <div class="g-recaptcha" data-sitekey="{{ config('services.recaptcha.site_key') }}"></div>
                     @if ($errors->has('g-recaptcha-response'))
                     <span style="color: red;">{{ $errors->first('g-recaptcha-response') }}</span>
                     @endif
                     @if ($errors->any())
-            <div class="alert alert-danger" style="color: red;">
-                <ul>
-                    @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-            @endif
-                <!-- Widget de reCAPTCHA -->
-            
+                    <div class="alert alert-danger" style="color: red;">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                    @endif
+                    <!-- Widget de reCAPTCHA -->
 
-                <input type="submit" class="fourth" value="Registrar" disabled id="submitButton">
+
+                    <input type="submit" class="fourth" value="Registrar" disabled id="submitButton">
             </form>
             <input type="button" class="underlineHover" value="Login" onclick="window.location.href='login'">
 
 
             <!-- Remind Passowrd -->
-           
+
         </div>
     </div>
     <script>

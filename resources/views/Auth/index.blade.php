@@ -14,7 +14,7 @@
     <div class="wrapper">
         <div id="formContent">
             <!-- Tabs Titles -->
-              <!-- Mensaje de estado -->
+            <!-- Mensaje de estado -->
             @if (session('status'))
             <div class="alert alert-success">
                 {{ session('status') }}
@@ -29,13 +29,22 @@
                 <input type="password" id="password" class=" third" name="password" placeholder="Contraseña">
                 <input type="submit" class=" fourth" value="Iniciar">
                 <div class="g-recaptcha" data-sitekey="{{ config('services.recaptcha.site_key') }}"></div>
-                    @if ($errors->has('g-recaptcha-response'))
-                    <span style="color: red;">{{ $errors->first('g-recaptcha-response') }}</span>
-                    @endif
+                @if ($errors->has('g-recaptcha-response'))
+                <span style="color: red;">{{ $errors->first('g-recaptcha-response') }}</span>
+                @endif
                 
             </form>
             <!-- Remind Passowrd -->
-             <input type="button" class="underlineHover" value="Registrarse" onclick="window.location.href='register'">
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+                @endif
+            <input type="button" class="underlineHover" value="Registrarse" onclick="window.location.href='register'">
         </div>
     </div>
 </body>
