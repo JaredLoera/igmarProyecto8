@@ -130,7 +130,7 @@ public function login(Request $request)
 
         return redirect($signedUrl);
     }
-    return back()->withErrors(['email' => 'Las credenciales proporcionadas no coinciden con nuestros registros.']);
+    return back()->withErrors(['error' => 'Las credenciales son incorrectas.']);
 }
 
 /**
