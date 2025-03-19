@@ -175,7 +175,7 @@ public function register(Request $request)
     $user = new User();
     $user->email = $request->email;
     $user->password = bcrypt($request->password);
-    $user->phone = $request->phone;
+    #$user->phone = $request->phone;
 
     if ($user->save()) {
         // Genera una URL firmada para la verificación del correo
@@ -188,8 +188,10 @@ public function register(Request $request)
         // Envía el correo de verificación
         Mail::to($user->email)->send(new EmailVerificationMail($signedUrl));
         return redirect()->route('login')->with('status', 'Se envió un correo de verificación.');
+    }else
+    {
+        return redirect()->route('register')->with('status', 'No se pudo registrar el usuario.');
     }
-    return back()->withErrors(['error' => 'No se pudo completar el registro.'])->onlyInput('email');
 }
 
 /**
