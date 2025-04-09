@@ -75,6 +75,68 @@ Route::get('/email/verify/{id}', [AuthController::class, 'verifyEmail'])
  * Esta ruta se utiliza como fallback cuando ninguna de las rutas anteriores coincide.
  * Devuelve una vista de error 404 personalizada.
  */
+
+/**
+ * Ruta de error 500
+ * 
+ * Esta ruta se utiliza como fallback para errores internos del servidor.
+ * Devuelve una vista de error 500 personalizada.
+ */
+
+
+/**
+ * Ruta de error 403
+ * 
+ * Esta ruta se utiliza como fallback para errores de acceso denegado.
+ * Devuelve una vista de error 403 personalizada.
+ */
+
+/**
+ * Ruta de error 419
+ * 
+ * Esta ruta se utiliza como fallback para errores de expiración de sesión.
+ * Devuelve una vista de error 419 personalizada.
+ */
+
+/**
+ * Ruta de error 429
+ * 
+ * Esta ruta se utiliza como fallback para errores de demasiadas solicitudes.
+ * Devuelve una vista de error 429 personalizada.
+ */
+
+/**
+ * Ruta de error 503
+ * 
+ * Esta ruta se utiliza como fallback para errores de servicio no disponible.
+ * Devuelve una vista de error 503 personalizada.
+ */
+
+/**
+ * Ruta de error 401
+ * 
+ * Esta ruta se utiliza como fallback para errores de autenticación no autorizada.
+ * Devuelve una vista de error 401 personalizada.
+ */
+
+Route::get('/401', function () {
+    return response()->view('errors.401', [], 401);
+})->name('401');
+Route::get('/403', function () {
+    return response()->view('errors.403', [], 403);
+})->name('403');
 Route::fallback(function () {
     return response()->view('errors.404', [], 404);
 });
+Route::get('/419', function () {
+    return response()->view('errors.419', [], 419);
+})->name('419');
+Route::get('/429', function () {
+    return response()->view('errors.429', [], 429);
+})->name('429');
+Route::get('/500', function () {
+    return response()->view('errors.500', [], 500);
+})->name('500');
+Route::get('/503', function () {
+    return response()->view('errors.503', [], 503);
+})->name('503');
